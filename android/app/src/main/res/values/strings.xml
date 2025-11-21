@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!-- Theme applied to the Android Window while the process is starting when the OS's Dark Mode setting is off -->
+    <string name="app_name">easacc_scan_devices_task</string>
+    <string name="facebook_app_id">2629068227448852</string>
+    <string name="facebook_client_token">b575ea6e6d49090a0c9e3cb17b8c9864</string>
+</resources>
