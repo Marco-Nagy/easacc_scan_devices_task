@@ -5,10 +5,7 @@ A Flutter mobile application that scans nearby Wi-Fi Direct & Bluetooth devices,
 
 ## 🎥 Demo (GIF)
 
-> **Replace this with your GIF path:**  
-`assets/demo.gif`
-
-![App Demo](assets/demo.gif)
+![App Demo](https://github.com/user-attachments/assets/fa4da43b-f1d2-4e70-a81e-9deaa974743f)
 
 ---
 
