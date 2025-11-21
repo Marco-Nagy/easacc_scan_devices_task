@@ -15,14 +15,18 @@ class AuthMappers {
     );
   }
   static AuthUserResponse mapGmailUserToDomain(UserCredential googleUser) {
-   debugPrint(' User logged ${
-   '${googleUser.user!.uid} ${googleUser.user!.displayName!}\n ${googleUser.user!.email} \n${googleUser.user!.photoURL!}'
-   }');
+    final user = googleUser.user;
+    if (user == null) {
+      throw Exception('Firebase user is null after sign-in');
+    }
+    debugPrint(' User logged ${
+    '${user.uid} ${user.displayName ?? 'No name'}\n ${user.email ?? 'No email'} \n${user.photoURL ?? 'No photo'}'
+    }');
     return AuthUserResponse(
-      id: googleUser.user!.uid,
-      name: googleUser.user!.displayName,
-      email: googleUser.user!.email,
-      avatarUrl: googleUser.user!.photoURL,
+      id: user.uid,
+      name: user.displayName,
+      email: user.email,
+      avatarUrl: user.photoURL,
     );
   }
   static AuthUserResponse mapFacebookUserToDomain(Map<String, dynamic> data) {

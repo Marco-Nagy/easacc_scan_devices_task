@@ -23,9 +23,11 @@ class AuthRepositoryImpl implements AuthRepository {
     switch (provider) {
       case AuthProviderType.google:
         final response = await _googleAuthDataSource.signIn();
-        return response!.toDomain();
+        if (response == null) {
+          throw Exception('Google sign-in returned null unexpectedly');
+        }
+        return response.toDomain();
       case AuthProviderType.facebook:
-
         final response = await _facebookAuthDataSource.signIn();
         return response.toDomain();
     }

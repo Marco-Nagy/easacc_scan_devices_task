@@ -1,3 +1,4 @@
+import 'package:easacc_scan_devices_task/core/services/device_enable_service.dart';
 import 'package:easacc_scan_devices_task/di/di.dart';
 import 'package:easacc_scan_devices_task/features/scan_devices/domain/entities/network_device.dart';
 import 'package:easacc_scan_devices_task/features/scan_devices/presentation/viewModel/scan_devices_view_model.dart';
@@ -33,12 +34,12 @@ class DevicesDropdown extends StatelessWidget {
             case ScanDevicesSuccess():
               final devices = state.devices;
               if (devices.isEmpty) {
-                return _buildEmptyState(viewModel);
+                return _buildEmptyState(viewModel, context);
               }
               return _buildSuccessState(viewModel, state);
 
             case ScanDevicesFailure():
-              return _buildErrorState(state, viewModel);
+              return _buildErrorState(state, viewModel, context);
           }
           return const SizedBox.shrink();
         },
@@ -49,7 +50,10 @@ class DevicesDropdown extends StatelessWidget {
   Widget _buildErrorState(
       ScanDevicesFailure state,
       ScanDevicesViewModel viewModel,
+      BuildContext context,
       ) {
+    final deviceEnableService = getIt<DeviceEnableService>();
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -58,15 +62,34 @@ class DevicesDropdown extends StatelessWidget {
           style: const TextStyle(color: Colors.red),
         ),
         const SizedBox(height: 8),
-        ElevatedButton(
-          onPressed: viewModel.scanDevices,
-          child: Row(
-            children: [
-              const Text('Retry scan'),
-              const SizedBox(width: 8),
-              const Icon(Icons.refresh),
-            ],
-          ),
+        Row(
+          children: [
+            ElevatedButton(
+              onPressed: viewModel.scanDevices,
+              child: Row(
+                children: [
+                  const Text('Retry scan'),
+                  const SizedBox(width: 8),
+                  const Icon(Icons.refresh),
+                ],
+              ),
+            ),
+            const SizedBox(width: 8),
+            ElevatedButton.icon(
+              onPressed: () async {
+                final bluetoothEnabled = await deviceEnableService.isBluetoothEnabled();
+                final wifiEnabled = await deviceEnableService.isWifiEnabled();
+                
+                await deviceEnableService.showEnableDevicesDialog(
+                  context,
+                  bluetoothEnabled: bluetoothEnabled,
+                  wifiEnabled: wifiEnabled,
+                );
+              },
+              icon: const Icon(Icons.settings),
+              label: const Text('Enable Devices'),
+            ),
+          ],
         ),
       ],
     );
@@ -119,7 +142,6 @@ class DevicesDropdown extends StatelessWidget {
           }).toList(),
           onChanged: (value) {
             if (value != null) {
-              // يفضّل تعمل method في الـ ViewModel لتحديث selectedDevice بدل ما تعمل emit من الويدجت
               viewModel.selectDevice(value);
             }
             onChanged?.call(value);
@@ -155,15 +177,36 @@ class DevicesDropdown extends StatelessWidget {
   }
 
 
-  Widget _buildEmptyState(ScanDevicesViewModel viewModel) {
+  Widget _buildEmptyState(ScanDevicesViewModel viewModel, BuildContext context) {
+    final deviceEnableService = getIt<DeviceEnableService>();
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text('No devices found.'),
         const SizedBox(height: 8),
-        ElevatedButton(
-          onPressed: viewModel.scanDevices,
-          child: const Text('Scan again'),
+        Row(
+          children: [
+            ElevatedButton(
+              onPressed: viewModel.scanDevices,
+              child: const Text('Scan again'),
+            ),
+            const SizedBox(width: 8),
+            ElevatedButton.icon(
+              onPressed: () async {
+                final bluetoothEnabled = await deviceEnableService.isBluetoothEnabled();
+                final wifiEnabled = await deviceEnableService.isWifiEnabled();
+                
+                await deviceEnableService.showEnableDevicesDialog(
+                  context,
+                  bluetoothEnabled: bluetoothEnabled,
+                  wifiEnabled: wifiEnabled,
+                );
+              },
+              icon: const Icon(Icons.settings),
+              label: const Text('Enable Devices'),
+            ),
+          ],
         ),
       ],
     );

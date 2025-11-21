@@ -16,6 +16,7 @@ import 'package:injectable/injectable.dart' as _i526;
 
 import '../core/common/core_module.dart' as _i285;
 import '../core/permissions/device_permissions_service.dart' as _i1071;
+import '../core/services/device_enable_service.dart' as _i448;
 import '../features/auth/data/data_sources/contracts/facebook_auth_data_source.dart'
     as _i684;
 import '../features/auth/data/data_sources/contracts/google_auth_data_source.dart'
@@ -50,6 +51,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i1071.DevicePermissionsService>(
       () => coreModule.devicePermissionsService,
+    );
+    gh.lazySingleton<_i448.DeviceEnableService>(
+      () => coreModule.deviceEnableService,
     );
     gh.lazySingleton<_i806.FacebookAuth>(() => coreModule.facebookAuth);
     gh.lazySingleton<_i901.GoogleAuthDataSource>(

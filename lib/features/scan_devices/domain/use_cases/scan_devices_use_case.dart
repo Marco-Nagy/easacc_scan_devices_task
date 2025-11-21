@@ -1,6 +1,7 @@
 import 'package:easacc_scan_devices_task/features/scan_devices/domain/entities/device_type.dart';
 import 'package:easacc_scan_devices_task/features/scan_devices/domain/entities/network_device.dart';
 import 'package:easacc_scan_devices_task/features/scan_devices/domain/repositories/scan_devices_repository.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:injectable/injectable.dart';
 
 @injectable
@@ -10,15 +11,26 @@ class ScanDevicesUseCase {
   ScanDevicesUseCase(this._scanDevicesRepository);
 
   Future<List<NetworkDevice>> call() async {
-  List<List<NetworkDevice>>  results = await Future.wait([
+    debugPrint('🔵 [UseCase] Starting device scan...');
+    
+    List<List<NetworkDevice>>  results = await Future.wait([
       _scanDevicesRepository.scanDevices(DeviceType.bluetooth),
       _scanDevicesRepository.scanDevices(DeviceType.wifi),
     ]);
-  results[0].sort((a, b) => b.rssi!.compareTo(a.rssi!));
-  results[1].sort((a, b) => b.rssi!.compareTo(a.rssi!));
+  
+    debugPrint('🔵 [UseCase] Bluetooth devices: ${results[0].length}, WiFi devices: ${results[1].length}');
+  
+    // Create mutable copies before sorting to avoid "Cannot modify an unmodifiable list" error
+    final bluetoothDevices = List<NetworkDevice>.from(results[0]);
+    final wifiDevices = List<NetworkDevice>.from(results[1]);
+  
+    bluetoothDevices.sort((a, b) => (b.rssi ?? 0).compareTo(a.rssi ?? 0));
+    wifiDevices.sort((a, b) => (b.rssi ?? 0).compareTo(a.rssi ?? 0));
 
-    final devices = [...results[0], ...results[1]];
-    return _sortDevices(devices);
+    final devices = [...bluetoothDevices, ...wifiDevices];
+    final sorted = _sortDevices(devices);
+    debugPrint('✅ [UseCase] Total devices after sorting: ${sorted.length}');
+    return sorted;
   }
 
   List<NetworkDevice> _sortDevices(List<NetworkDevice> devices) {
