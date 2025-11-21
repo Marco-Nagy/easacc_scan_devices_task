@@ -1,4 +1,5 @@
 import 'package:easacc_scan_devices_task/core/utils/routing/app_router.dart';
+import 'package:easacc_scan_devices_task/core/utils/routing/go_router_x.dart';
 import 'package:easacc_scan_devices_task/features/scan_devices/presentation/viewModel/scan_devices_view_model.dart';
 import 'package:easacc_scan_devices_task/features/scan_devices/presentation/widget/devices_dropdown.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class _SettingsViewState extends State<SettingsView> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.pop(),
+          onPressed: () => Navigator.pop(context),
         ),
         title: Row(
           children: [
