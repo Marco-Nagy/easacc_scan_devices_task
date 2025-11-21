@@ -152,9 +152,13 @@ flutter run
 
 **Marco Nagy**  
 Flutter Developer  
+
 📩 marconbishay@gmail.com 
+
 📱 +20 122 040 7005
+
 LinkedIn | https://www.linkedin.com/in/marco-nagy/
+
 GitHub | https://github.com/Marco-Nagy
 
 ---
