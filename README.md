@@ -144,10 +144,7 @@ flutter run
 
 - Make sure debug and release SHA keys are added to Firebase.
 
----
 
-## 📸 Screenshots
-*(Add your screenshots here)*
 
 ---
 
@@ -155,7 +152,9 @@ flutter run
 
 **Marco Nagy**  
 Flutter Developer  
-📧 marconagy7000@gmail.com  
-🔗 Add your GitHub/LinkedIn link
+📩 marconbishay@gmail.com 
+📱 +20 122 040 7005
+LinkedIn | https://www.linkedin.com/in/marco-nagy/
+GitHub | https://github.com/Marco-Nagy
 
 ---
