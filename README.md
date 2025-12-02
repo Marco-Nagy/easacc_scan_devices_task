@@ -5,10 +5,7 @@ A Flutter mobile application that scans nearby Wi-Fi Direct & Bluetooth devices,
 
 ## 🎥 Demo (GIF)
 
-> **Replace this with your GIF path:**  
-`assets/demo.gif`
-
-![App Demo](assets/demo.gif)
+![App Demo](https://github.com/user-attachments/assets/fa4da43b-f1d2-4e70-a81e-9deaa974743f)
 
 ---
 
@@ -147,10 +144,7 @@ flutter run
 
 - Make sure debug and release SHA keys are added to Firebase.
 
----
 
-## 📸 Screenshots
-*(Add your screenshots here)*
 
 ---
 
@@ -158,7 +152,13 @@ flutter run
 
 **Marco Nagy**  
 Flutter Developer  
-📧 marconagy7000@gmail.com  
-🔗 Add your GitHub/LinkedIn link
+
+📩 marconbishay@gmail.com 
+
+📱 +20 122 040 7005
+
+LinkedIn | https://www.linkedin.com/in/marco-nagy/
+
+GitHub | https://github.com/Marco-Nagy
 
 ---
